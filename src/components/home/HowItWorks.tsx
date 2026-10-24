@@ -1,20 +1,29 @@
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
+import { Reveal } from '@/components/ui/Reveal'
 import { howItWorks } from '@/content/fr'
 import type { FeatureKey } from '@/config/features'
 
-function StepList({ title, steps }: { title: string; steps: { title: string; text: string; feature: FeatureKey | null }[] }) {
+function StepList({
+  title,
+  steps,
+  panelDelay,
+}: {
+  title: string
+  steps: { title: string; text: string; feature: FeatureKey | null }[]
+  panelDelay: number
+}) {
   return (
-    <div className="rounded-panel border border-line bg-white p-6 shadow-soft sm:p-7">
+    <Reveal delay={panelDelay} className="rounded-panel border border-line bg-white p-6 shadow-soft sm:p-7">
       <h3 className="text-sm font-semibold tracking-wide text-accent-text uppercase">{title}</h3>
       <ol className="mt-5 space-y-0">
         {steps.map((step, index) => (
-          <li key={step.title} className="relative flex gap-4 pb-7 last:pb-0">
+          <Reveal key={step.title} as="li" delay={panelDelay + index * 90} className="relative flex gap-4 pb-7 last:pb-0">
             {index < steps.length - 1 ? (
               <span className="absolute top-8 left-[15px] h-full w-px bg-line-strong" aria-hidden="true" />
             ) : null}
-            <span className="relative z-10 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-navy-900 text-xs font-bold text-white">
+            <span className="relative z-10 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-navy-900 text-xs font-bold text-white transition-colors duration-300 hover:bg-accent">
               {index + 1}
             </span>
             <div className="flex-1 pt-0.5">
@@ -24,10 +33,10 @@ function StepList({ title, steps }: { title: string; steps: { title: string; tex
               </div>
               <p className="mt-1 text-sm leading-6 text-muted">{step.text}</p>
             </div>
-          </li>
+          </Reveal>
         ))}
       </ol>
-    </div>
+    </Reveal>
   )
 }
 
@@ -35,16 +44,18 @@ export function HowItWorks() {
   return (
     <section id={howItWorks.id} aria-labelledby="how-it-works-heading" className="bg-navy-50 py-20 sm:py-24">
       <Container>
-        <SectionHeading
-          eyebrow={howItWorks.eyebrow}
-          heading={howItWorks.heading}
-          lead={howItWorks.lead}
-          align="center"
-        />
+        <Reveal>
+          <SectionHeading
+            eyebrow={howItWorks.eyebrow}
+            heading={howItWorks.heading}
+            lead={howItWorks.lead}
+            align="center"
+          />
+        </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <StepList title={howItWorks.seller.title} steps={[...howItWorks.seller.steps]} />
-          <StepList title={howItWorks.buyer.title} steps={[...howItWorks.buyer.steps]} />
+          <StepList title={howItWorks.seller.title} steps={[...howItWorks.seller.steps]} panelDelay={0} />
+          <StepList title={howItWorks.buyer.title} steps={[...howItWorks.buyer.steps]} panelDelay={120} />
         </div>
       </Container>
     </section>

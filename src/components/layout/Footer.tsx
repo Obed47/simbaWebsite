@@ -13,8 +13,8 @@ export function Footer() {
       <div className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white p-1">
+            <div className="group flex w-fit items-center gap-2.5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white p-1 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <Image src="/brand/simba-logo.png" alt="" width={24} height={24} className="h-6 w-auto" />
               </span>
               <span className="text-lg font-semibold text-white">SIMBA</span>
@@ -30,7 +30,7 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {nav.map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} className="text-sm text-navy-100/85 hover:text-white">
+                    <Link href={item.href} className="inline-block text-sm text-navy-100/85 transition-[color,transform] duration-200 hover:translate-x-0.5 hover:text-white">
                       {item.label}
                     </Link>
                   </li>
@@ -54,7 +54,7 @@ export function Footer() {
                 <ul className="flex flex-wrap gap-3 pt-1">
                   {siteConfig.social.map((item) => (
                     <li key={item.href}>
-                      <a href={item.href} className="text-sm text-navy-100/85 hover:text-white">
+                      <a href={item.href} className="inline-block text-sm text-navy-100/85 transition-[color,transform] duration-200 hover:translate-x-0.5 hover:text-white">
                         {item.label}
                       </a>
                     </li>
@@ -70,14 +70,14 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 {siteConfig.legal.privacyPath ? (
                   <li>
-                    <Link href={siteConfig.legal.privacyPath} className="text-sm text-navy-100/85 hover:text-white">
+                    <Link href={siteConfig.legal.privacyPath} className="inline-block text-sm text-navy-100/85 transition-[color,transform] duration-200 hover:translate-x-0.5 hover:text-white">
                       {footerContent.privacy}
                     </Link>
                   </li>
                 ) : null}
                 {siteConfig.legal.termsPath ? (
                   <li>
-                    <Link href={siteConfig.legal.termsPath} className="text-sm text-navy-100/85 hover:text-white">
+                    <Link href={siteConfig.legal.termsPath} className="inline-block text-sm text-navy-100/85 transition-[color,transform] duration-200 hover:translate-x-0.5 hover:text-white">
                       {footerContent.terms}
                     </Link>
                   </li>

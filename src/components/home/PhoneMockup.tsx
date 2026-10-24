@@ -44,7 +44,10 @@ export function PhoneMockup() {
                 { name: 'Sac à dos', price: '18 500 FCFA' },
                 { name: 'Sneakers', price: '25 000 FCFA' },
               ].map((item) => (
-                <div key={item.name} className="rounded-xl border border-line bg-white p-2.5 shadow-soft">
+                <div
+                  key={item.name}
+                  className="rounded-xl border border-line bg-white p-2.5 shadow-soft transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lift"
+                >
                   <div className="h-14 rounded-lg bg-navy-50" />
                   <p className="mt-2 text-[0.68rem] font-semibold text-navy-900">{item.name}</p>
                   <p className="text-[0.65rem] text-muted">{item.price}</p>
@@ -78,7 +81,7 @@ export function PhoneMockup() {
           <p className="mt-1.5 text-[0.62rem] leading-4 text-muted">Confirmez le paiement sur votre téléphone</p>
         </div>
 
-        {/* Floating card: delivery code. Anchored below the frame for the same reason. */}
+        {/* Floating card: handover code. Anchored below the frame for the same reason. */}
         <div className="animate-float absolute -bottom-8 -left-8 hidden w-36 rounded-xl border border-line bg-white p-3 shadow-lift [animation-delay:1.4s] sm:block">
           <p className="text-[0.6rem] font-semibold tracking-wide text-muted uppercase">Code de remise</p>
           <p className="mt-1 text-lg font-bold tracking-[0.2em] text-navy-900">48 21 06</p>

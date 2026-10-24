@@ -4,6 +4,7 @@ import { useId, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
+import { Reveal } from '@/components/ui/Reveal'
 import { faq } from '@/content/fr'
 
 function FaqItem({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void }) {
@@ -11,7 +12,7 @@ function FaqItem({ question, answer, isOpen, onToggle }: { question: string; ans
   const buttonId = useId()
 
   return (
-    <div className="border-b border-line last:border-b-0">
+    <div className="group border-b border-line last:border-b-0">
       <h3>
         <button
           id={buttonId}
@@ -21,10 +22,12 @@ function FaqItem({ question, answer, isOpen, onToggle }: { question: string; ans
           onClick={onToggle}
           className="flex w-full items-center justify-between gap-4 py-5 text-left"
         >
-          <span className="font-medium text-navy-900">{question}</span>
+          <span className="font-medium text-navy-900 transition-colors duration-200 group-hover:text-accent-text">
+            {question}
+          </span>
           <Icon
             name="chevron-down"
-            className={`h-5 w-5 flex-none text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            className={`h-5 w-5 flex-none text-muted transition-transform duration-300 ${isOpen ? 'rotate-180 text-accent-text' : ''}`}
           />
         </button>
       </h3>
@@ -48,9 +51,11 @@ export function FaqSection() {
   return (
     <section id={faq.id} aria-labelledby="faq-heading" className="bg-navy-50 py-20 sm:py-24">
       <Container>
-        <SectionHeading eyebrow={faq.eyebrow} heading={faq.heading} lead={faq.lead} align="center" />
+        <Reveal>
+          <SectionHeading eyebrow={faq.eyebrow} heading={faq.heading} lead={faq.lead} align="center" />
+        </Reveal>
 
-        <div className="mx-auto mt-10 max-w-3xl rounded-panel border border-line bg-white px-6 shadow-soft sm:px-8">
+        <Reveal delay={120} className="mx-auto mt-10 max-w-3xl rounded-panel border border-line bg-white px-6 shadow-soft sm:px-8">
           {faq.items.map((item, index) => (
             <FaqItem
               key={item.question}
@@ -60,7 +65,7 @@ export function FaqSection() {
               onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
             />
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   )

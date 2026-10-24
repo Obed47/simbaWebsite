@@ -1,12 +1,12 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import { Hero } from '@/components/home/Hero'
 import { ValueProps } from '@/components/home/ValueProps'
 import { SellerSection } from '@/components/home/SellerSection'
 import { BuyerSection } from '@/components/home/BuyerSection'
 import { HowItWorks } from '@/components/home/HowItWorks'
 import { PaymentsTrust } from '@/components/home/PaymentsTrust'
-import { DeliverySection } from '@/components/home/DeliverySection'
 import { VisionSection } from '@/components/home/VisionSection'
 import { FaqSection } from '@/components/home/FaqSection'
 import { ContactSection } from '@/components/home/ContactSection'
@@ -21,6 +21,7 @@ export default function Home() {
       >
         {ui.skipToContent}
       </a>
+      <ScrollProgress />
       <Header />
       <main id="main-content" className="flex-1">
         <Hero />
@@ -29,7 +30,6 @@ export default function Home() {
         <BuyerSection />
         <HowItWorks />
         <PaymentsTrust />
-        <DeliverySection />
         <VisionSection />
         <FaqSection />
         <ContactSection />

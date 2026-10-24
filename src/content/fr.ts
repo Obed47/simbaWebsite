@@ -29,7 +29,10 @@ export const ui = {
 
 export const hero = {
   eyebrow: 'L’avenir du commerce local',
-  headline: 'Achetez en confiance. Vendez avec SIMBA.',
+  // Rendered as two visually distinct lines in the hero (see Hero.tsx); kept
+  // as separate strings rather than split at render time so the line break
+  // is a deliberate content choice, not a text-processing guess.
+  headlineLines: ['Achetez en confiance.', 'Vendez avec SIMBA.'] as const,
   body:
     'SIMBA aide les commerçants du Cameroun à présenter leurs produits en ligne, à mieux suivre leurs commandes et à gagner la confiance de leurs clients.',
   primaryCta: 'Explorer SIMBA',
@@ -225,22 +228,6 @@ export const payments = {
   },
 }
 
-export const delivery = {
-  id: 'livraison',
-  eyebrow: 'Livraison et proximité',
-  heading: 'Livrer là où l’adresse de rue ne suffit pas.',
-  lead:
-    'Dans de nombreux quartiers, les adresses sont peu précises. SIMBA prévoit de s’appuyer sur les commerces de proximité que tout le monde connaît, pour réceptionner et remettre les colis. Ce service est en phase de développement et sera déployé par étapes, quartier par quartier.',
-  steps: [
-    { title: 'Le commerçant prépare le colis', icon: 'orders' },
-    { title: 'Le point relais le reçoit', icon: 'storefront' },
-    { title: 'Le client présente son code', icon: 'shield' },
-    { title: 'Le colis est remis', icon: 'check' },
-  ],
-  status: 'Service prévu, non encore ouvert. Aujourd’hui, la remise se fait directement entre le vendeur et l’acheteur.',
-  feature: 'pickupRelayPoints' as FeatureKey,
-}
-
 export const faq = {
   id: 'faq',
   eyebrow: 'Questions fréquentes',
@@ -283,16 +270,6 @@ export const faq = {
         'Le principe est de retenir les fonds jusqu’à la remise confirmée par un code. Ce mécanisme n’est pas encore en service, et SIMBA ne promet donc aucune garantie à ce stade. Consultez la section « Paiements et confiance ».',
     },
     {
-      question: 'Comment fonctionne la livraison ?',
-      answer:
-        'Au lancement, la remise se fait directement entre le vendeur et l’acheteur. Une solution de livraison plus large est prévue par étapes.',
-    },
-    {
-      question: 'Existe-t-il des points relais ?',
-      answer:
-        'Des points relais chez des commerçants de quartier sont prévus pour une phase ultérieure. Ils ne sont pas encore ouverts, et vous ne pouvez pas en choisir un dans l’application à ce stade.',
-    },
-    {
       question: 'Comment rejoindre SIMBA ou en savoir plus ?',
       answer:
         'Utilisez le formulaire de contact en bas de cette page en précisant si vous êtes vendeur, acheteur ou partenaire. L’équipe vous répondra à partir des coordonnées que vous indiquez.',
@@ -314,7 +291,7 @@ export const contact = {
   paths: [
     { title: 'Vendeurs', text: 'Vous voulez rejoindre SIMBA et présenter votre activité.' },
     { title: 'Acheteurs', text: 'Vous voulez en savoir plus sur la commande et le paiement.' },
-    { title: 'Partenaires', text: 'Vous êtes commerçant relais ou acteur logistique ou financier.' },
+    { title: 'Partenaires', text: 'Vous représentez une entreprise ou un acteur financier intéressé par SIMBA.' },
     { title: 'Questions générales', text: 'Pour toute autre demande, écrivez-nous simplement.' },
   ],
   form: {
@@ -322,7 +299,7 @@ export const contact = {
     profiles: [
       { value: 'vendeur', label: 'Vendeur' },
       { value: 'acheteur', label: 'Acheteur' },
-      { value: 'partenaire', label: 'Partenaire (commerce, logistique, paiement)' },
+      { value: 'partenaire', label: 'Partenaire (commerce, paiement, autre)' },
       { value: 'autre', label: 'Autre demande' },
     ],
     nameLabel: 'Nom complet',

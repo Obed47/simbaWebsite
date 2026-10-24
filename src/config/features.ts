@@ -108,16 +108,6 @@ export const features = {
     status: 'planned',
     evidence: 'Spec v3 addendum §15.5 : affichée seulement au-delà d’un seuil d’historique.',
   },
-  pickupRelayPoints: {
-    label: 'Points relais chez des commerçants partenaires',
-    status: 'planned',
-    evidence: 'Spec v2 §3.3 (Phase 3) et addendum §13 (implantation par vagues).',
-  },
-  orchestratedDelivery: {
-    label: 'Livraison orchestrée de bout en bout',
-    status: 'planned',
-    evidence: 'Spec v3 addendum §13 (V2, Mois 5).',
-  },
   socialFeed: {
     label: 'Fil de découverte social',
     status: 'planned',

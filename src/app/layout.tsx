@@ -65,7 +65,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang={siteConfig.language} className={`${poppins.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {/* Scroll-reveal sections start invisible and fade in via JS
+            (see Reveal.tsx). Without JavaScript that never fires, so this
+            safety net forces them visible instead of permanently hidden. */}
+        <noscript>
+          <style>{`[class*="opacity-0"]{opacity:1 !important}[class*="translate-y-5"],[class*="-translate-x-2"],[class*="-translate-y-2"]{transform:none !important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   )
 }

@@ -4,6 +4,7 @@ import { type FormEvent, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
+import { Reveal } from '@/components/ui/Reveal'
 import { contact } from '@/content/fr'
 import { siteConfig } from '@/config/site'
 
@@ -72,14 +73,21 @@ export function ContactSection() {
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
-            <SectionHeading eyebrow={contact.eyebrow} heading={contact.heading} lead={contact.lead} />
+            <Reveal>
+              <SectionHeading eyebrow={contact.eyebrow} heading={contact.heading} lead={contact.lead} />
+            </Reveal>
 
             <ul className="mt-8 space-y-3">
-              {contact.paths.map((path) => (
-                <li key={path.title} className="rounded-xl border border-line bg-white p-4 shadow-soft">
+              {contact.paths.map((path, index) => (
+                <Reveal
+                  key={path.title}
+                  as="li"
+                  delay={100 + index * 80}
+                  className="rounded-xl border border-line bg-white p-4 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-x-1 hover:shadow-lift"
+                >
                   <p className="font-semibold text-navy-900">{path.title}</p>
                   <p className="mt-1 text-sm leading-6 text-muted">{path.text}</p>
-                </li>
+                </Reveal>
               ))}
             </ul>
 
@@ -88,7 +96,7 @@ export function ContactSection() {
             ) : null}
           </div>
 
-          <div className="lg:col-span-7">
+          <Reveal delay={150} className="lg:col-span-7">
             <form
               noValidate
               onSubmit={handleSubmit}
@@ -100,10 +108,10 @@ export function ContactSection() {
                   {contact.form.profiles.map((profile) => (
                     <label
                       key={profile.value}
-                      className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-3.5 py-3 text-sm transition-colors ${
+                      className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-3.5 py-3 text-sm transition-[background-color,border-color,transform] duration-200 active:scale-[0.98] ${
                         form.profile === profile.value
                           ? 'border-accent bg-accent-soft text-accent-text'
-                          : 'border-line text-navy-900 hover:border-line-strong'
+                          : 'border-line text-navy-900 hover:border-line-strong hover:bg-navy-50/60'
                       }`}
                     >
                       <input
@@ -132,7 +140,7 @@ export function ContactSection() {
                   onChange={(event) => setForm((f) => ({ ...f, name: event.target.value }))}
                   aria-invalid={Boolean(errors.name)}
                   aria-describedby={errors.name ? 'contact-name-error' : undefined}
-                  className="mt-1.5 w-full rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none focus:border-navy-800"
+                  className="mt-1.5 w-full rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none transition-[border-color,box-shadow] duration-200 focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10"
                 />
                 {errors.name ? (
                   <p id="contact-name-error" className="mt-1.5 text-sm text-red-700">
@@ -153,7 +161,7 @@ export function ContactSection() {
                   onChange={(event) => setForm((f) => ({ ...f, contactInfo: event.target.value }))}
                   aria-invalid={Boolean(errors.contactInfo)}
                   aria-describedby={errors.contactInfo ? 'contact-info-error' : 'contact-info-help'}
-                  className="mt-1.5 w-full rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none focus:border-navy-800"
+                  className="mt-1.5 w-full rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none transition-[border-color,box-shadow] duration-200 focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10"
                 />
                 {errors.contactInfo ? (
                   <p id="contact-info-error" className="mt-1.5 text-sm text-red-700">
@@ -177,7 +185,7 @@ export function ContactSection() {
                   onChange={(event) => setForm((f) => ({ ...f, message: event.target.value }))}
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? 'contact-message-error' : undefined}
-                  className="mt-1.5 w-full resize-y rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none focus:border-navy-800"
+                  className="mt-1.5 w-full resize-y rounded-xl border border-line px-3.5 py-2.5 text-sm text-navy-900 outline-none transition-[border-color,box-shadow] duration-200 focus:border-navy-800 focus:ring-4 focus:ring-navy-800/10"
                 />
                 {errors.message ? (
                   <p id="contact-message-error" className="mt-1.5 text-sm text-red-700">
@@ -189,25 +197,30 @@ export function ContactSection() {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60 sm:w-auto"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-accent-hover active:translate-y-0 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60 sm:w-auto"
               >
+                {status === 'sending' ? (
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
+                ) : null}
                 {status === 'sending' ? contact.form.sending : contact.form.submit}
               </button>
 
               <div aria-live="polite" className="mt-4">
                 {status === 'success' ? (
-                  <p className="flex items-center gap-2 text-sm font-medium text-accent-text">
+                  <p className="animate-rise flex items-center gap-2 text-sm font-medium text-accent-text">
                     <Icon name="check" className="h-4 w-4" />
                     {contact.form.success}
                   </p>
                 ) : null}
                 {status === 'not-configured' ? (
-                  <p className="text-sm text-sun-ink">{contact.form.notConfigured}</p>
+                  <p className="animate-rise text-sm text-sun-ink">{contact.form.notConfigured}</p>
                 ) : null}
-                {status === 'error' ? <p className="text-sm text-red-700">{contact.form.errors.server}</p> : null}
+                {status === 'error' ? (
+                  <p className="animate-rise text-sm text-red-700">{contact.form.errors.server}</p>
+                ) : null}
               </div>
             </form>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </section>

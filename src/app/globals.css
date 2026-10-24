@@ -79,6 +79,28 @@ body {
   }
 }
 
+/* Animated underline for desktop nav links: a thin bar that sweeps in from
+   the left on hover/focus, instead of an instant color swap. */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.nav-underline:hover::after,
+.nav-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
 @keyframes float-soft {
   0%,
   100% {
@@ -99,6 +121,23 @@ body {
 
 .animate-float {
   animation: float-soft 6s ease-in-out infinite;
+}
+
+/* Slow ambient rotation for the hero's concentric rings. The translate keeps
+   each ring centered on its box (it's positioned via left:50%/top:50%), so
+   it has to live inside the keyframe rather than as a separate utility class
+   — a CSS `animation` replaces the whole `transform` value while it runs. */
+@keyframes ring-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.animate-ring-spin {
+  animation: ring-spin 60s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
