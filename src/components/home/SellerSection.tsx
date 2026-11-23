@@ -6,6 +6,17 @@ import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
 import { sellers } from '@/content/fr'
 import { appCtaHref } from '@/lib/links'
+import { features, type FeatureStatus } from '@/config/features'
+import { cn } from '@/lib/cn'
+
+// Icon chip colour echoes the same status the badge already states, so the
+// grid reads at a glance instead of every chip being identically navy.
+const iconToneByStatus: Record<FeatureStatus, string> = {
+  live: 'bg-accent/25 text-accent',
+  'in-development': 'bg-sun/25 text-sun',
+  planned: 'bg-white/15 text-navy-100',
+  unknown: 'bg-white/10 text-navy-100',
+}
 
 export function SellerSection() {
   return (
@@ -26,16 +37,26 @@ export function SellerSection() {
             </Reveal>
           </div>
 
+          {/* Alternate columns sit slightly lower on larger screens — a light
+              masonry rhythm instead of a perfectly even grid. */}
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7">
             {sellers.benefits.map((benefit, index) => (
               <Reveal
                 key={benefit.title}
                 as="li"
                 delay={index * 80}
-                className="group rounded-panel border border-white/10 bg-white/[0.04] p-5 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
+                className={cn(
+                  'group rounded-panel border border-white/10 bg-white/[0.04] p-5 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-white/[0.07]',
+                  index % 2 === 1 && 'sm:translate-y-6',
+                )}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/15 text-accent transition-transform duration-300 group-hover:scale-110">
+                  <span
+                    className={cn(
+                      'flex h-9 w-9 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110',
+                      iconToneByStatus[features[benefit.feature].status],
+                    )}
+                  >
                     <Icon name="check" className="h-4 w-4" />
                   </span>
                   <FeatureBadge feature={benefit.feature} />

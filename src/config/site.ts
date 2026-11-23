@@ -31,6 +31,15 @@ export const siteConfig = {
   appUrl: emptyToNull(process.env.NEXT_PUBLIC_APP_URL),
 
   /**
+   * Real App Store / Google Play listing URLs. Each is independently null
+   * until the app is actually published there — never a placeholder or
+   * guessed store ID. While unset, that badge falls back to the contact
+   * section instead of linking to a listing that doesn't exist.
+   */
+  appStoreUrl: emptyToNull(process.env.NEXT_PUBLIC_APP_STORE_URL),
+  playStoreUrl: emptyToNull(process.env.NEXT_PUBLIC_PLAY_STORE_URL),
+
+  /**
    * HTTPS endpoint that receives contact form submissions (JSON POST).
    * While unset, the form validates input but reports that submission is not yet configured.
    */

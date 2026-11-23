@@ -55,17 +55,18 @@ export function FaqSection() {
           <SectionHeading eyebrow={faq.eyebrow} heading={faq.heading} lead={faq.lead} align="center" />
         </Reveal>
 
-        <Reveal delay={120} className="mx-auto mt-10 max-w-3xl rounded-panel border border-line bg-white px-6 shadow-soft sm:px-8">
+        <div className="mx-auto mt-10 max-w-3xl rounded-panel border border-line bg-white px-6 shadow-soft sm:px-8">
           {faq.items.map((item, index) => (
-            <FaqItem
-              key={item.question}
-              question={item.question}
-              answer={item.answer}
-              isOpen={openIndex === index}
-              onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
-            />
+            <Reveal key={item.question} as="div" variant="fade" delay={index * 45}>
+              <FaqItem
+                question={item.question}
+                answer={item.answer}
+                isOpen={openIndex === index}
+                onToggle={() => setOpenIndex((current) => (current === index ? null : index))}
+              />
+            </Reveal>
           ))}
-        </Reveal>
+        </div>
       </Container>
     </section>
   )

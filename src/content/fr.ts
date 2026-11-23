@@ -9,6 +9,7 @@ import type { FeatureKey } from '@/config/features'
 export const nav = [
   { label: 'Accueil', href: '#accueil' },
   { label: 'À propos', href: '#a-propos' },
+  { label: 'Aperçu', href: '#apercu' },
   { label: 'Pour les vendeurs', href: '#vendeurs' },
   { label: 'Pour les acheteurs', href: '#acheteurs' },
   { label: 'Comment ça marche', href: '#fonctionnement' },
@@ -24,7 +25,12 @@ export const ui = {
   menuLabel: 'Menu principal',
   mainNavLabel: 'Navigation principale',
   illustrativeNote: 'Aperçu illustratif, non une capture de l’application.',
+  photoPlaceholderNote: 'Photos à titre d’illustration, en attendant les visuels des produits.',
   footerNavLabel: 'Navigation du pied de page',
+  appStoreLine1: 'Télécharger sur',
+  appStoreLine2: 'App Store',
+  playStoreLine1: 'Disponible sur',
+  playStoreLine2: 'Google Play',
 }
 
 export const hero = {
@@ -35,7 +41,6 @@ export const hero = {
   headlineLines: ['Achetez en confiance.', 'Vendez avec SIMBA.'] as const,
   body:
     'SIMBA aide les commerçants du Cameroun à présenter leurs produits en ligne, à mieux suivre leurs commandes et à gagner la confiance de leurs clients.',
-  primaryCta: 'Explorer SIMBA',
   secondaryCta: 'Découvrir le fonctionnement',
   note: 'Conçu pour le téléphone, les réseaux sociaux et le Mobile Money.',
 }
@@ -70,6 +75,40 @@ export const value = {
       title: 'Pensé pour les réalités locales',
       text: 'Une interface mobile, des images légères pour les connexions instables, et une remise adaptée aux quartiers où l’adresse de rue ne suffit pas.',
       feature: null,
+    },
+  ],
+}
+
+export const showcase = {
+  id: 'apercu',
+  eyebrow: 'Dans l’application',
+  heading: 'Un aperçu de l’interface, écran par écran.',
+  lead:
+    'Trois moments clés de l’expérience SIMBA : la boutique du vendeur, le suivi des commandes et le paiement Mobile Money de l’acheteur.',
+  tabs: [
+    {
+      key: 'boutique',
+      label: 'Boutique',
+      title: 'Une boutique organisée',
+      text: 'Les produits sont présentés avec photo, badge et prix, prêts à être partagés en quelques secondes.',
+      feature: 'sellerShop' as FeatureKey,
+      icon: 'storefront' as const,
+    },
+    {
+      key: 'commandes',
+      label: 'Commandes',
+      title: 'Un tableau de bord clair',
+      text: 'Chaque commande affiche son statut — payée, préparée, remise — et peut avancer d’un geste.',
+      feature: 'orderDashboard' as FeatureKey,
+      icon: 'orders' as const,
+    },
+    {
+      key: 'paiement',
+      label: 'Paiement',
+      title: 'Un paiement Mobile Money',
+      text: 'L’acheteur confirme la demande de paiement directement depuis son téléphone, Orange Money ou MTN MoMo.',
+      feature: 'mobileMoneyCollection' as FeatureKey,
+      icon: 'phone' as const,
     },
   ],
 }
@@ -289,10 +328,14 @@ export const contact = {
   lead:
     'Vous vendez en ligne, vous voulez découvrir SIMBA, ou vous souhaitez devenir partenaire ? Écrivez-nous.',
   paths: [
-    { title: 'Vendeurs', text: 'Vous voulez rejoindre SIMBA et présenter votre activité.' },
-    { title: 'Acheteurs', text: 'Vous voulez en savoir plus sur la commande et le paiement.' },
-    { title: 'Partenaires', text: 'Vous représentez une entreprise ou un acteur financier intéressé par SIMBA.' },
-    { title: 'Questions générales', text: 'Pour toute autre demande, écrivez-nous simplement.' },
+    { title: 'Vendeurs', text: 'Vous voulez rejoindre SIMBA et présenter votre activité.', icon: 'storefront' as const },
+    { title: 'Acheteurs', text: 'Vous voulez en savoir plus sur la commande et le paiement.', icon: 'users' as const },
+    {
+      title: 'Partenaires',
+      text: 'Vous représentez une entreprise ou un acteur financier intéressé par SIMBA.',
+      icon: 'link' as const,
+    },
+    { title: 'Questions générales', text: 'Pour toute autre demande, écrivez-nous simplement.', icon: 'chat' as const },
   ],
   form: {
     profileLabel: 'Vous êtes',

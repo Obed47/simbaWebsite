@@ -3,7 +3,7 @@
 import { type FormEvent, useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { Icon } from '@/components/ui/Icon'
+import { Icon, type IconName } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
 import { contact } from '@/content/fr'
 import { siteConfig } from '@/config/site'
@@ -83,10 +83,15 @@ export function ContactSection() {
                   key={path.title}
                   as="li"
                   delay={100 + index * 80}
-                  className="rounded-xl border border-line bg-white p-4 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-x-1 hover:shadow-lift"
+                  className="group flex items-start gap-3.5 rounded-xl border border-line bg-white p-4 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-x-1 hover:shadow-lift"
                 >
-                  <p className="font-semibold text-navy-900">{path.title}</p>
-                  <p className="mt-1 text-sm leading-6 text-muted">{path.text}</p>
+                  <span className="flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-navy-900 text-white transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-accent">
+                    <Icon name={path.icon as IconName} className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-navy-900">{path.title}</p>
+                    <p className="mt-1 text-sm leading-6 text-muted">{path.text}</p>
+                  </div>
                 </Reveal>
               ))}
             </ul>

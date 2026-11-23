@@ -3,6 +3,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
 import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
+import { HorizontalConnector } from '@/components/home/HorizontalConnector'
 import { payments } from '@/content/fr'
 
 export function PaymentsTrust() {
@@ -16,14 +17,18 @@ export function PaymentsTrust() {
         <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <h3 className="text-sm font-semibold tracking-wide text-accent-text uppercase">{payments.flowTitle}</h3>
-            <ol className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <ol className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
               {payments.flow.map((step, index) => (
                 <Reveal
                   key={step.title}
                   as="li"
                   delay={index * 90}
-                  className="group rounded-panel border border-line bg-white p-5 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lift"
+                  className="group relative rounded-panel border border-line bg-white p-5 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lift"
                 >
+                  {/* Connects each step to the next one in its row (0→1,
+                      2→3) — not 1→2, which wraps to a new row and has no
+                      sensible horizontal line to draw. */}
+                  {index % 2 === 0 ? <HorizontalConnector visibleFrom="sm" /> : null}
                   <div className="flex items-center justify-between">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-900 text-xs font-bold text-white transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-accent">
                       {index + 1}

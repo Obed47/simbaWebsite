@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
 import { Reveal } from '@/components/ui/Reveal'
+import { StepConnector } from '@/components/home/StepConnector'
 import { howItWorks } from '@/content/fr'
 import type { FeatureKey } from '@/config/features'
 
@@ -20,9 +21,7 @@ function StepList({
       <ol className="mt-5 space-y-0">
         {steps.map((step, index) => (
           <Reveal key={step.title} as="li" delay={panelDelay + index * 90} className="relative flex gap-4 pb-7 last:pb-0">
-            {index < steps.length - 1 ? (
-              <span className="absolute top-8 left-[15px] h-full w-px bg-line-strong" aria-hidden="true" />
-            ) : null}
+            {index < steps.length - 1 ? <StepConnector /> : null}
             <span className="relative z-10 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-navy-900 text-xs font-bold text-white transition-colors duration-300 hover:bg-accent">
               {index + 1}
             </span>

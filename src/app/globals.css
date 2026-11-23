@@ -140,6 +140,47 @@ body {
   animation: ring-spin 60s linear infinite;
 }
 
+/* Hero product feed: the track renders its list twice back-to-back, then
+   scrolls from "second copy showing" to "first copy showing". Because the
+   two copies are identical, the jump back to the start is invisible, giving
+   an infinite downward-falling loop from one looping CSS animation. */
+@keyframes marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.animate-marquee-down {
+  animation: marquee-down 22s linear infinite;
+}
+
+/* A second, slightly slower speed for the falling-products panel's other
+   column — same loop technique, different duration, so the two columns
+   drift out of sync instead of reading as one mirrored column. */
+.animate-marquee-down-slow {
+  animation: marquee-down 28s linear infinite;
+}
+
+/* Hovering the falling-products panel pauses every column — a real,
+   working interaction (actually stops the motion so it can be looked at),
+   not a decorative hover state. */
+.falling-products-pause:hover .animate-marquee-down,
+.falling-products-pause:hover .animate-marquee-down-slow {
+  animation-play-state: paused;
+}
+
+/* Gradient text for a single selected headline per the brand's accent
+   colours — reserved for moments that should feel premium, not applied broadly. */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--color-accent) 10%, var(--color-navy-800) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

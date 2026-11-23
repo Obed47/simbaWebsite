@@ -39,8 +39,10 @@ export function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 border-b backdrop-blur transition-[background-color,border-color,box-shadow] duration-300 supports-[backdrop-filter]:bg-ivory/75',
-        scrolled ? 'border-line bg-ivory/95 shadow-soft' : 'border-line/0 bg-ivory/90',
+        'sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300',
+        scrolled
+          ? 'border-line bg-ivory/90 shadow-soft backdrop-blur supports-[backdrop-filter]:bg-ivory/75'
+          : 'border-transparent bg-transparent',
       )}
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-6 lg:px-8">
@@ -51,7 +53,7 @@ export function Header() {
         >
           <Image
             src="/brand/simba-logo.png"
-            alt="SIMBA"
+            alt=""
             width={30}
             height={30}
             className="h-8 w-auto transition-transform duration-300 group-hover:scale-110"
@@ -60,13 +62,16 @@ export function Header() {
           <span className="text-lg font-semibold tracking-tight text-navy-900">SIMBA</span>
         </Link>
 
-        <nav aria-label={ui.mainNavLabel} className="hidden lg:block">
-          <ul className="flex items-center gap-7">
+        {/* Eight items plus the logo and CTA need xl's extra width to lay out
+            on one line without wrapping — lg was too tight once "Aperçu" (the
+            product showcase) joined the other seven links. */}
+        <nav aria-label={ui.mainNavLabel} className="hidden xl:block">
+          <ul className="flex items-center gap-5">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="nav-underline text-sm font-medium text-navy-900/80 transition-colors hover:text-navy-900"
+                  className="nav-underline text-sm font-medium whitespace-nowrap text-navy-900/80 transition-colors hover:text-navy-900"
                 >
                   {item.label}
                 </Link>
@@ -75,7 +80,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Button href={appCtaHref} className="px-5 py-2.5 text-sm">
             {ui.exploreApp}
           </Button>
@@ -83,7 +88,7 @@ export function Header() {
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full text-navy-900 transition-transform duration-150 active:scale-90 lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-navy-900 transition-transform duration-150 active:scale-90 xl:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? ui.closeMenu : ui.openMenu}
@@ -96,11 +101,15 @@ export function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          'fixed inset-x-0 top-16 bottom-0 z-40 bg-ivory lg:hidden',
+          'fixed inset-x-0 top-16 bottom-0 z-40 bg-ivory xl:hidden',
           'transition-[opacity,transform] duration-300 ease-out',
           open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
         )}
         aria-hidden={!open}
+        // Closing the menu only hides it visually; without `inert`, its links
+        // and button stay in the tab order — a keyboard user can land on
+        // controls that are invisible and hidden from screen readers too.
+        inert={!open}
       >
         <nav aria-label={ui.menuLabel} className="flex h-full flex-col px-6 py-8">
           <ul className="flex flex-col gap-1">

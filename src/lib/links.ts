@@ -10,3 +10,13 @@ import { siteConfig } from '@/config/site'
 export const appCtaHref = siteConfig.appUrl ?? '#contact'
 export const isAppCtaConfigured = siteConfig.appUrl !== null
 export const isAppCtaExternal = (href: string) => href.startsWith('http')
+
+/**
+ * Store badge destinations. Each falls back to the contact section
+ * independently — one store listing can go live before the other, and
+ * neither badge should ever point at a fabricated or placeholder listing.
+ */
+export const appStoreHref = siteConfig.appStoreUrl ?? '#contact'
+export const playStoreHref = siteConfig.playStoreUrl ?? '#contact'
+export const isAppStoreConfigured = siteConfig.appStoreUrl !== null
+export const isPlayStoreConfigured = siteConfig.playStoreUrl !== null

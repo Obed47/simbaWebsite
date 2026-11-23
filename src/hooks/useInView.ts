@@ -18,7 +18,7 @@ import { useEffect, useRef, useState } from 'react'
  * past it, and fires immediately when the browser doesn't support
  * IntersectionObserver rather than leaving content permanently hidden.
  */
-export function useInView<T extends HTMLElement>(options?: { threshold?: number; rootMargin?: string }) {
+export function useInView<T extends Element>(options?: { threshold?: number; rootMargin?: string }) {
   const ref = useRef<T | null>(null)
   const [isInView, setIsInView] = useState(false)
 

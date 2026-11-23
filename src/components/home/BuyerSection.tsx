@@ -3,6 +3,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
 import { Button } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
+import { HorizontalConnector } from '@/components/home/HorizontalConnector'
 import { buyers } from '@/content/fr'
 import { appCtaHref } from '@/lib/links'
 
@@ -22,6 +23,7 @@ export function BuyerSection() {
               delay={index * 90}
               className="group relative rounded-panel border border-line bg-white p-5 shadow-soft transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-lift"
             >
+              {index < buyers.journey.length - 1 ? <HorizontalConnector /> : null}
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-900 text-sm font-bold text-white transition-[background-color,transform] duration-300 group-hover:scale-110 group-hover:bg-accent">
                 {index + 1}
               </span>

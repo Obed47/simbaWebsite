@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
+import { GrowthPath } from '@/components/home/GrowthPath'
 import { vision } from '@/content/fr'
 
 export function VisionSection() {
@@ -12,6 +13,9 @@ export function VisionSection() {
           <div className="lg:col-span-6">
             <Reveal>
               <SectionHeading eyebrow={vision.eyebrow} heading={vision.heading} lead={vision.lead} />
+            </Reveal>
+            <Reveal delay={150}>
+              <GrowthPath />
             </Reveal>
           </div>
           <div className="lg:col-span-6">

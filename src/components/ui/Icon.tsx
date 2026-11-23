@@ -17,6 +17,8 @@ export type IconName =
   | 'lock'
   | 'map-pin'
   | 'users'
+  | 'download'
+  | 'play'
 
 const paths: Record<IconName, ReactNode> = {
   storefront: (
@@ -97,6 +99,16 @@ const paths: Record<IconName, ReactNode> = {
       <path d="M15.5 13.7c2.4.3 4 2.3 4 5.3" />
     </>
   ),
+  download: (
+    <>
+      <path d="M12 3.5v11.5" />
+      <path d="m7.5 10.5 4.5 4.5 4.5-4.5" />
+      <path d="M4.5 19.5h15" />
+    </>
+  ),
+  // A plain triangle — a generic "play" glyph, not a reproduction of any
+  // store's trademarked logomark.
+  play: <path d="M8 5.5v13l11-6.5-11-6.5Z" />,
 }
 
 export function Icon({ name, className, ...props }: { name: IconName } & SVGProps<SVGSVGElement>) {
