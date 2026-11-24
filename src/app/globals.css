@@ -45,7 +45,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis (see SmoothScroll.tsx) now owns smooth scrolling, including anchor
+     links — CSS scroll-behavior:smooth here would double-animate against it. */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -121,55 +122,6 @@ body {
 
 .animate-float {
   animation: float-soft 6s ease-in-out infinite;
-}
-
-/* Slow ambient rotation for the hero's concentric rings. The translate keeps
-   each ring centered on its box (it's positioned via left:50%/top:50%), so
-   it has to live inside the keyframe rather than as a separate utility class
-   — a CSS `animation` replaces the whole `transform` value while it runs. */
-@keyframes ring-spin {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.animate-ring-spin {
-  animation: ring-spin 60s linear infinite;
-}
-
-/* Hero product feed: the track renders its list twice back-to-back, then
-   scrolls from "second copy showing" to "first copy showing". Because the
-   two copies are identical, the jump back to the start is invisible, giving
-   an infinite downward-falling loop from one looping CSS animation. */
-@keyframes marquee-down {
-  from {
-    transform: translateY(-50%);
-  }
-  to {
-    transform: translateY(0%);
-  }
-}
-
-.animate-marquee-down {
-  animation: marquee-down 22s linear infinite;
-}
-
-/* A second, slightly slower speed for the falling-products panel's other
-   column — same loop technique, different duration, so the two columns
-   drift out of sync instead of reading as one mirrored column. */
-.animate-marquee-down-slow {
-  animation: marquee-down 28s linear infinite;
-}
-
-/* Hovering the falling-products panel pauses every column — a real,
-   working interaction (actually stops the motion so it can be looked at),
-   not a decorative hover state. */
-.falling-products-pause:hover .animate-marquee-down,
-.falling-products-pause:hover .animate-marquee-down-slow {
-  animation-play-state: paused;
 }
 
 /* Gradient text for a single selected headline per the brand's accent

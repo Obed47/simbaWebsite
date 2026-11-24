@@ -28,7 +28,8 @@ export const features = {
   sellerShop: {
     label: 'Mini-boutique vendeur',
     status: 'in-development',
-    evidence: 'Écrans vendeur dans dev/src/screens/seller (prototype, données de démonstration).',
+    evidence:
+      'Écrans vendeur dans dev/src/screens/seller (prototype, données de démonstration) ; confirmé par capture d’écran réelle de l’app (public/phone-mockups/products.webp, homepage.jpeg).',
   },
   productPublishing: {
     label: 'Ajout de produits avec photos, prix et description',
@@ -43,13 +44,14 @@ export const features = {
   sellerApproval: {
     label: 'Validation des vendeurs par l’administrateur',
     status: 'in-development',
-    evidence: 'AdminScreen.jsx et SellerOnboardingScreen.jsx (interface seulement).',
+    evidence:
+      'AdminScreen.jsx et SellerOnboardingScreen.jsx (interface seulement) ; confirmé par capture d’écran réelle de l’app (public/phone-mockups/seller.webp), affichant « En attente de validation ».',
   },
   mobileMoneyCollection: {
     label: 'Paiement Orange Money et MTN MoMo',
     status: 'in-development',
     evidence:
-      'CheckoutScreen.jsx + dev/server (CamPay, configuré pour l’environnement de démonstration DEV). Pas encore vérifié en production.',
+      'CheckoutScreen.jsx + dev/server (CamPay, configuré pour l’environnement de démonstration DEV). Pas encore vérifié en production. Confirmé par capture d’écran réelle de l’app (public/phone-mockups/checkout.webp), détection d’opérateur MTN MoMo visible.',
   },
   paymentStatusPolling: {
     label: 'Vérification du statut de paiement',
@@ -116,7 +118,8 @@ export const features = {
   shortVideos: {
     label: 'Vidéos courtes (shorts)',
     status: 'planned',
-    evidence: 'Spec v3 addendum §11.1 (V2, Mois 5). Le MVP ne gère que les images.',
+    evidence:
+      'Spec v3 addendum §11.1 (V2, Mois 5). Le MVP ne gère que les images. Confirmé par capture d’écran réelle de l’app (public/phone-mockups/live-sales.webp), qui affiche elle-même « Bientôt disponible ».',
   },
   disputeMediation: {
     label: 'Médiation des litiges',

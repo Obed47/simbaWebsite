@@ -9,11 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "lenis": "^1.3.28",
+    "motion": "^14.14.0",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@iconify-json/solar": "^1.2.17",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

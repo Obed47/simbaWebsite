@@ -3,11 +3,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { nav, ui } from '@/content/fr'
 import { appCtaHref } from '@/lib/links'
 import { cn } from '@/lib/cn'
+
+const menuVariants = {
+  hidden: { opacity: 0, y: -8 },
+  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -12 },
+  visible: { opacity: 1, x: 0 },
+}
 
 export function Header() {
   const [open, setOpen] = useState(false)
@@ -45,7 +56,9 @@ export function Header() {
           : 'border-transparent bg-transparent',
       )}
     >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-6 lg:px-8">
+      {/* Slightly wider than the page container: eight links plus the
+          "Télécharger l'application" button don't fit max-w-6xl at xl. */}
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-5 sm:px-6 lg:px-8">
         <Link
           href="#accueil"
           className="group flex items-center gap-2.5 transition-transform duration-200 active:scale-95"
@@ -66,7 +79,7 @@ export function Header() {
             on one line without wrapping — lg was too tight once "Aperçu" (the
             product showcase) joined the other seven links. */}
         <nav aria-label={ui.mainNavLabel} className="hidden xl:block">
-          <ul className="flex items-center gap-5">
+          <ul className="flex items-center gap-4 2xl:gap-5">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
@@ -81,7 +94,7 @@ export function Header() {
         </nav>
 
         <div className="hidden xl:block">
-          <Button href={appCtaHref} className="px-5 py-2.5 text-sm">
+          <Button href={appCtaHref} className="px-5 py-2.5 text-sm whitespace-nowrap">
             {ui.exploreApp}
           </Button>
         </div>
@@ -98,47 +111,44 @@ export function Header() {
         </button>
       </div>
 
-      <div
-        id="mobile-menu"
-        className={cn(
-          'fixed inset-x-0 top-16 bottom-0 z-40 bg-ivory xl:hidden',
-          'transition-[opacity,transform] duration-300 ease-out',
-          open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0',
-        )}
-        aria-hidden={!open}
-        // Closing the menu only hides it visually; without `inert`, its links
-        // and button stay in the tab order — a keyboard user can land on
-        // controls that are invisible and hidden from screen readers too.
-        inert={!open}
-      >
-        <nav aria-label={ui.menuLabel} className="flex h-full flex-col px-6 py-8">
-          <ul className="flex flex-col gap-1">
-            {nav.map((item, index) => (
-              <li
-                key={item.href}
-                className={cn(
-                  'transition-[opacity,transform] duration-300 ease-out',
-                  open ? 'translate-x-0 opacity-100' : '-translate-x-2 opacity-0',
-                )}
-                style={{ transitionDelay: open ? `${index * 40}ms` : '0ms' }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-xl px-3 py-3.5 text-lg font-medium text-navy-900 transition-colors hover:bg-navy-50"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-6">
-            <Button href={appCtaHref} className="w-full justify-center" onClick={() => setOpen(false)}>
-              {ui.exploreApp}
-            </Button>
-          </div>
-        </nav>
-      </div>
+      {/* AnimatePresence only mounts the panel's links while open, so a
+          closed menu has nothing in the DOM to accidentally land keyboard
+          focus on — a more direct fix than toggling `inert` on an
+          always-mounted panel. */}
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            id="mobile-menu"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={menuVariants}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-16 bottom-0 z-40 bg-ivory xl:hidden"
+          >
+            <nav aria-label={ui.menuLabel} className="flex h-full flex-col px-6 py-8">
+              <ul className="flex flex-col gap-1">
+                {nav.map((item) => (
+                  <motion.li key={item.href} variants={itemVariants}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-xl px-3 py-3.5 text-lg font-medium text-navy-900 transition-colors hover:bg-navy-50"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.div variants={itemVariants} className="mt-auto pt-6">
+                <Button href={appCtaHref} className="w-full justify-center" onClick={() => setOpen(false)}>
+                  {ui.exploreApp}
+                </Button>
+              </motion.div>
+            </nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </header>
   )
 }

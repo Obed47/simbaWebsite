@@ -15,6 +15,10 @@ const styles: Record<FeatureStatus, string> = {
  */
 export function FeatureBadge({ feature, className }: { feature: FeatureKey; className?: string }) {
   const status = features[feature].status
+  // Per the site owner, "En développement" pills aren't shown. The status
+  // stays in the matrix, and section copy (payments notice, FAQ) still says
+  // what isn't open yet.
+  if (status === 'in-development') return null
   return (
     <span
       className={cn(

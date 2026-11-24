@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
@@ -34,6 +35,23 @@ export function SellerSection() {
                 </Button>
                 <p className="mt-3 max-w-sm text-sm text-navy-100/75">{sellers.ctaNote}</p>
               </div>
+            </Reveal>
+
+            {/* The real seller sign-up screen — alpha-transparent source, so
+                it sits directly on the dark background with no card needed. */}
+            <Reveal delay={240} className="relative mt-10 hidden w-48 sm:block lg:w-56">
+              <div
+                className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-accent/15 blur-2xl"
+                aria-hidden="true"
+              />
+              <Image
+                src="/phone-mockups/seller.webp"
+                alt="Écran d’inscription vendeur de l’application SIMBA, en attente de validation"
+                width={772}
+                height={1600}
+                className="h-auto w-full drop-shadow-2xl"
+                sizes="224px"
+              />
             </Reveal>
           </div>
 

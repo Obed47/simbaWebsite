@@ -19,13 +19,12 @@ export const nav = [
 
 export const ui = {
   skipToContent: 'Aller au contenu',
-  exploreApp: 'Explorer SIMBA',
+  exploreApp: 'Télécharger l’application',
   openMenu: 'Ouvrir le menu',
   closeMenu: 'Fermer le menu',
   menuLabel: 'Menu principal',
   mainNavLabel: 'Navigation principale',
-  illustrativeNote: 'Aperçu illustratif, non une capture de l’application.',
-  photoPlaceholderNote: 'Photos à titre d’illustration, en attendant les visuels des produits.',
+  realScreenshotNote: 'Capture d’écran réelle de l’application SIMBA.',
   footerNavLabel: 'Navigation du pied de page',
   appStoreLine1: 'Télécharger sur',
   appStoreLine2: 'App Store',
@@ -50,7 +49,7 @@ export const value = {
   eyebrow: 'À propos de SIMBA',
   heading: 'Le commerce en ligne, rendu plus simple pour tout le monde.',
   lead:
-    'Au Cameroun, une part importante des ventes en ligne se fait déjà sur WhatsApp, Facebook et Instagram. Mais les commandes arrivent dans des conversations dispersées, les paiements se vérifient à la main sur des captures d’écran, et le suivi repose sur la mémoire. SIMBA ne demande pas d’abandonner ces habitudes : la plateforme apporte une organisation numérique autour du commerce qui existe déjà.',
+    'Au Cameroun, beaucoup de ventes en ligne passent par WhatsApp, Facebook et Instagram. Les commandes s’y perdent et les paiements se vérifient à la main. SIMBA organise ce commerce, sans changer vos habitudes.',
   points: [
     {
       icon: 'storefront',
@@ -67,7 +66,7 @@ export const value = {
     {
       icon: 'shield',
       title: 'Plus de confiance à chaque transaction',
-      text: 'Un paiement structuré autour de la remise du produit, confirmé par un code. La section « Paiements et confiance » détaille ce qui est déjà en développement et ce qui est prévu.',
+      text: 'Un paiement structuré autour de la remise du produit, confirmé par un code.',
       feature: 'deliveryCodeConfirmation' as FeatureKey,
     },
     {
@@ -83,24 +82,27 @@ export const showcase = {
   id: 'apercu',
   eyebrow: 'Dans l’application',
   heading: 'Un aperçu de l’interface, écran par écran.',
-  lead:
-    'Trois moments clés de l’expérience SIMBA : la boutique du vendeur, le suivi des commandes et le paiement Mobile Money de l’acheteur.',
+  lead: 'Quatre captures d’écran réelles de l’application SIMBA : le catalogue, la commande, le paiement et ce qui arrive ensuite.',
   tabs: [
     {
-      key: 'boutique',
-      label: 'Boutique',
-      title: 'Une boutique organisée',
-      text: 'Les produits sont présentés avec photo, badge et prix, prêts à être partagés en quelques secondes.',
+      key: 'catalogue',
+      label: 'Catalogue',
+      title: 'Un catalogue organisé',
+      text: 'Les produits sont classés par catégorie, avec photo, note et prix, prêts à être découverts ou partagés.',
       feature: 'sellerShop' as FeatureKey,
       icon: 'storefront' as const,
+      image: '/phone-mockups/products.webp',
+      imageAlt: 'Catalogue de produits de l’application SIMBA, classés par catégorie',
     },
     {
-      key: 'commandes',
-      label: 'Commandes',
-      title: 'Un tableau de bord clair',
-      text: 'Chaque commande affiche son statut — payée, préparée, remise — et peut avancer d’un geste.',
-      feature: 'orderDashboard' as FeatureKey,
+      key: 'commande',
+      label: 'Commande',
+      title: 'Un parcours de commande guidé',
+      text: 'Produit, paiement, confirmation puis suivi : quatre étapes claires, affichées à chaque instant de la commande.',
+      feature: 'mobileMoneyCollection' as FeatureKey,
       icon: 'orders' as const,
+      image: '/phone-mockups/product-details.webp',
+      imageAlt: 'Écran de commande de l’application SIMBA, étape 1 sur 4 : Produit',
     },
     {
       key: 'paiement',
@@ -108,7 +110,20 @@ export const showcase = {
       title: 'Un paiement Mobile Money',
       text: 'L’acheteur confirme la demande de paiement directement depuis son téléphone, Orange Money ou MTN MoMo.',
       feature: 'mobileMoneyCollection' as FeatureKey,
+      operators: true,
       icon: 'phone' as const,
+      image: '/phone-mockups/checkout.webp',
+      imageAlt: 'Écran de paiement de l’application SIMBA avec détection de l’opérateur Mobile Money',
+    },
+    {
+      key: 'direct',
+      label: 'Vente en direct',
+      title: 'Bientôt : la vente en direct',
+      text: 'Une fonctionnalité à venir, déjà annoncée dans l’application : présenter et vendre des produits en vidéo, en direct.',
+      feature: 'shortVideos' as FeatureKey,
+      icon: 'phone' as const,
+      image: '/phone-mockups/live-sales.webp',
+      imageAlt: 'Écran « Vente en vidéo et en direct » de l’application SIMBA, marqué bientôt disponible',
     },
   ],
 }
@@ -180,26 +195,32 @@ export const buyers = {
       title: 'Découvrez le produit',
       text: 'Ouvrez le lien partagé par le vendeur ou sa boutique.',
       feature: 'shareableProductLinks' as FeatureKey,
+      icon: 'link' as const,
     },
     {
       title: 'Vérifiez les détails',
       text: 'Consultez le prix, la description, les photos et les avis du vendeur.',
       feature: 'buyerReviews' as FeatureKey,
+      icon: 'check' as const,
     },
     {
       title: 'Commandez sans créer de compte',
       text: 'Renseignez votre numéro de téléphone pour recevoir vos confirmations.',
       feature: null,
+      icon: 'arrow-right' as const,
     },
     {
       title: 'Payez par Mobile Money',
       text: 'Confirmez la demande de paiement sur votre téléphone, avec Orange Money ou MTN MoMo.',
       feature: 'mobileMoneyCollection' as FeatureKey,
+      operators: true,
+      icon: 'phone' as const,
     },
     {
       title: 'Recevez et confirmez',
       text: 'Suivez les mises à jour de votre commande et confirmez la remise avec votre code.',
       feature: 'deliveryCodeConfirmation' as FeatureKey,
+      icon: 'shield' as const,
     },
   ],
   cta: 'Découvrir SIMBA',
@@ -210,7 +231,7 @@ export const howItWorks = {
   eyebrow: 'Comment ça marche',
   heading: 'Un parcours simple, de la boutique à la remise.',
   lead:
-    'Les étapes ci-dessous décrivent la conception visée. Chaque étape indique son état d’avancement : ce qui est en développement n’est pas encore disponible pour tous.',
+    'Les étapes ci-dessous décrivent la conception visée. Certaines fonctions ne sont pas encore disponibles pour tous.',
   seller: {
     title: 'Côté vendeur',
     steps: [
@@ -244,9 +265,10 @@ export const payments = {
       title: 'Paiement',
       text: 'L’acheteur paie par Mobile Money, via un prestataire de paiement agréé.',
       feature: 'mobileMoneyCollection' as FeatureKey,
+      operators: true,
     },
     {
-      title: 'Fonds retenus',
+      title: 'Fonds séquestrés',
       text: 'Le montant est retenu jusqu’à la remise du produit. Le vendeur sait que la commande est payée.',
       feature: 'escrowHolding' as FeatureKey,
     },
@@ -291,7 +313,7 @@ export const faq = {
     {
       question: 'Comment présenter mes produits sur SIMBA ?',
       answer:
-        'Vous créez votre boutique, puis vous ajoutez vos produits avec leurs photos, leur prix et leur description. Ces fonctions sont en cours de développement.',
+        'Vous créez votre boutique, puis vous ajoutez vos produits avec leurs photos, leur prix et leur description. Ces fonctions ne sont pas encore ouvertes à tous.',
     },
     {
       question: 'Puis-je partager mes liens SIMBA sur WhatsApp ?',

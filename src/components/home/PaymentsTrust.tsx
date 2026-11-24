@@ -1,10 +1,12 @@
+import Image from 'next/image'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
 import { Icon } from '@/components/ui/Icon'
+import { MobileMoneyLogos } from '@/components/ui/MobileMoneyLogos'
 import { Reveal } from '@/components/ui/Reveal'
 import { HorizontalConnector } from '@/components/home/HorizontalConnector'
-import { payments } from '@/content/fr'
+import { payments, ui } from '@/content/fr'
 
 export function PaymentsTrust() {
   return (
@@ -37,14 +39,33 @@ export function PaymentsTrust() {
                   </div>
                   <p className="mt-3.5 font-semibold text-navy-900">{step.title}</p>
                   <p className="mt-1.5 text-sm leading-6 text-muted">{step.text}</p>
+                  {step.operators ? <MobileMoneyLogos className="mt-3.5" /> : null}
                 </Reveal>
               ))}
             </ol>
           </div>
 
           <div className="lg:col-span-5">
-            <Reveal delay={200} className="h-full">
-              <div className="h-full rounded-panel border border-sun/30 bg-sun-soft p-6 transition-shadow duration-300 hover:shadow-soft">
+            {/* The real payment step from the app — alpha-transparent
+                source, floating directly on the page with no card. */}
+            <Reveal delay={120} className="relative mx-auto hidden w-44 sm:block lg:mx-0">
+              <div
+                className="pointer-events-none absolute -inset-5 -z-10 rounded-full bg-sun/20 blur-2xl"
+                aria-hidden="true"
+              />
+              <Image
+                src="/phone-mockups/checkout.webp"
+                alt="Écran de paiement de l’application SIMBA avec détection de l’opérateur Mobile Money"
+                width={775}
+                height={1600}
+                className="h-auto w-full drop-shadow-2xl"
+                sizes="176px"
+              />
+              <p className="mt-3 text-center text-xs text-muted">{ui.realScreenshotNote}</p>
+            </Reveal>
+
+            <Reveal delay={200} className="mt-6 h-fit">
+              <div className="rounded-panel border border-sun/30 bg-sun-soft p-6 transition-shadow duration-300 hover:shadow-soft">
                 <div className="flex items-center gap-2.5">
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sun-ink">
                     <Icon name="lock" className="h-4.5 w-4.5" />

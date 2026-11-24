@@ -1,108 +1,19 @@
 'use client'
 
-import { useState, type ReactElement } from 'react'
+import Image from 'next/image'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { FeatureBadge } from '@/components/ui/FeatureBadge'
 import { Icon, type IconName } from '@/components/ui/Icon'
+import { MobileMoneyLogos } from '@/components/ui/MobileMoneyLogos'
 import { Reveal } from '@/components/ui/Reveal'
 import { ui, showcase } from '@/content/fr'
-
-const products = [
-  { name: 'Sac à dos en toile', price: '18 500 FCFA', badge: 'Bestseller' },
-  { name: 'Chemise en coton naturel', price: '12 000 FCFA', badge: 'Nouveau' },
-  { name: 'Sneakers urbaines', price: '25 000 FCFA', badge: 'Très apprécié' },
-]
-
-const orders = [
-  { id: 'CMD-2031', customer: 'Awa N.', amount: '12 000 FCFA', status: 'Payée · séquestre', tone: 'sun' as const },
-  { id: 'CMD-2030', customer: 'Junior T.', amount: '8 500 FCFA', status: 'Préparée', tone: 'navy' as const },
-  { id: 'CMD-2029', customer: 'Marie K.', amount: '25 000 FCFA', status: 'Remise', tone: 'accent' as const },
-]
-
-const statusStyles = {
-  sun: 'bg-sun-soft text-sun-ink',
-  navy: 'bg-navy-100 text-navy-900',
-  accent: 'bg-accent-soft text-accent-text',
-}
-
-function BoutiqueScreen() {
-  return (
-    <div className="space-y-2.5">
-      {products.map((product) => (
-        <div key={product.name} className="flex items-center gap-3 rounded-xl border border-line bg-white p-2.5 shadow-soft">
-          <div className="h-12 w-12 flex-none rounded-lg bg-navy-50" />
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-[0.72rem] font-semibold text-navy-900">{product.name}</p>
-            <p className="text-[0.65rem] text-muted">{product.price}</p>
-          </div>
-          <span className="flex-none rounded-full bg-accent-soft px-2 py-0.5 text-[0.58rem] font-semibold text-accent-text">
-            {product.badge}
-          </span>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function CommandesScreen() {
-  return (
-    <div className="space-y-2.5">
-      {orders.map((order) => (
-        <div key={order.id} className="rounded-xl border border-line bg-white p-3 shadow-soft">
-          <div className="flex items-center justify-between">
-            <p className="text-[0.7rem] font-semibold text-navy-900">{order.customer}</p>
-            <p className="text-[0.72rem] font-bold text-navy-900">{order.amount}</p>
-          </div>
-          <div className="mt-2 flex items-center justify-between">
-            <p className="text-[0.62rem] text-muted">{order.id}</p>
-            <span className={`rounded-full px-2 py-0.5 text-[0.58rem] font-semibold ${statusStyles[order.tone]}`}>
-              {order.status}
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function PaiementScreen() {
-  return (
-    <div className="space-y-3">
-      <div className="rounded-xl border border-line bg-white p-3.5 shadow-soft">
-        <p className="text-[0.62rem] font-semibold text-muted uppercase">Téléphone</p>
-        <p className="mt-1 text-[0.85rem] font-semibold text-navy-900">+237 6•• •• •• 12</p>
-        <p className="mt-1.5 text-[0.62rem] leading-4 text-accent-text">
-          Opérateur détecté : MTN MoMo. Confirmez la demande sur votre téléphone.
-        </p>
-      </div>
-      <div className="rounded-xl border border-line bg-white p-3.5 shadow-soft">
-        <div className="flex items-center justify-between text-[0.7rem]">
-          <span className="text-muted">Chemise en coton naturel</span>
-          <span className="font-semibold text-navy-900">12 000 FCFA</span>
-        </div>
-      </div>
-      <div className="flex items-center justify-center gap-2 rounded-xl bg-navy-900 p-3 text-white">
-        <span
-          className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white"
-          aria-hidden="true"
-        />
-        <span className="text-[0.7rem] font-semibold">En attente de confirmation…</span>
-      </div>
-    </div>
-  )
-}
-
-const screens: Record<string, () => ReactElement> = {
-  boutique: BoutiqueScreen,
-  commandes: CommandesScreen,
-  paiement: PaiementScreen,
-}
 
 export function ProductShowcase() {
   const [active, setActive] = useState(0)
   const activeTab = showcase.tabs[active]
-  const ActiveScreen = screens[activeTab.key]
 
   const moveTab = (direction: 1 | -1) => {
     setActive((current) => (current + direction + showcase.tabs.length) % showcase.tabs.length)
@@ -121,7 +32,7 @@ export function ProductShowcase() {
               {showcase.tabs.map((tab, index) => {
                 const isActive = index === active
                 return (
-                  <button
+                  <motion.button
                     key={tab.key}
                     role="tab"
                     id={`showcase-tab-${tab.key}`}
@@ -138,6 +49,8 @@ export function ProductShowcase() {
                         moveTab(-1)
                       }
                     }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                     className={`group flex items-start gap-3.5 rounded-panel border p-4 text-left transition-[border-color,background-color,box-shadow] duration-300 sm:p-5 ${
                       isActive
                         ? 'border-accent bg-white shadow-lift'
@@ -157,44 +70,49 @@ export function ProductShowcase() {
                         <FeatureBadge feature={tab.feature} />
                       </div>
                       <p className="mt-1 text-sm leading-6 text-muted">{tab.text}</p>
+                      {tab.operators ? <MobileMoneyLogos size="sm" stacked decorative className="mt-2" /> : null}
                     </div>
-                  </button>
+                  </motion.button>
                 )
               })}
             </div>
           </Reveal>
 
           <Reveal as="div" className="lg:col-span-7" delay={160}>
-            <div className="mx-auto w-full max-w-sm">
-              <div className="relative rounded-[2.25rem] border-[6px] border-navy-950 bg-navy-950 p-2.5 shadow-lift">
-                <div className="absolute top-3 left-1/2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-navy-950" />
-                <div className="overflow-hidden rounded-4xl bg-ivory">
-                  <div className="flex items-center justify-between px-4 pt-6 pb-3">
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-navy-900/70" />
-                      <span className="text-[0.7rem] font-semibold text-navy-900">Boutique Aline</span>
-                    </div>
-                    <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[0.6rem] font-semibold text-accent-text">
-                      {activeTab.label}
-                    </span>
-                  </div>
-
-                  {/* Keying by tab replays the entrance animation on every
-                      switch, which is exactly the "tabs that change the
-                      screenshot" interaction, without any extra JS. id/role
-                      complete the tabs pattern each tab's aria-controls points to. */}
-                  <div
+            <div className="mx-auto w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px]">
+              {/* Real screenshots, not a hand-built phone frame — each source
+                  file already includes its own device bezel. A fixed
+                  aspect-ratio box (all five share almost the same ratio)
+                  keeps the panel from jumping size when the tab switches,
+                  since `fill` + `object-contain` scales each image to fit it
+                  regardless of its exact native pixels. AnimatePresence
+                  cross-fades/slides between screenshots instead of an
+                  abrupt swap. */}
+              <div className="relative aspect-[483/1000] w-full overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.div
                     key={activeTab.key}
                     id={`showcase-panel-${activeTab.key}`}
                     role="tabpanel"
                     aria-labelledby={`showcase-tab-${activeTab.key}`}
-                    className="animate-rise px-4 pb-6"
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -24 }}
+                    transition={{ type: 'spring', stiffness: 220, damping: 26 }}
+                    className="absolute inset-0"
                   >
-                    {ActiveScreen ? <ActiveScreen /> : null}
-                  </div>
-                </div>
+                    <Image
+                      src={activeTab.image}
+                      alt={activeTab.imageAlt}
+                      fill
+                      className="object-contain drop-shadow-2xl"
+                      sizes="(min-width: 1024px) 400px, (min-width: 640px) 360px, 320px"
+                      priority={active === 0}
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <p className="mt-5 text-center text-xs text-muted">{ui.illustrativeNote}</p>
+              <p className="mt-5 text-center text-xs text-muted">{ui.realScreenshotNote}</p>
             </div>
           </Reveal>
         </div>

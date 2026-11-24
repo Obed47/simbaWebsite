@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { motion } from 'motion/react'
 import { cn } from '@/lib/cn'
 import { isAppCtaExternal } from '@/lib/links'
 
@@ -22,11 +25,20 @@ interface ButtonProps {
   onClick?: () => void
 }
 
+// Wrapped once at module scope, not per render — motion.create() memoises
+// its own result anyway, but there's no reason to call it twice.
+const MotionLink = motion.create(Link)
+const MotionAnchor = motion.create('a')
+
+// Spring hover/tap feedback lives here, not in a CSS :hover rule — Framer
+// keeps an inline `transform` on the element once any motion prop is set,
+// which would silently out-rank a stylesheet transform rule anyway.
+const tapSpring = { type: 'spring', stiffness: 400, damping: 17 } as const
+
 export function Button({ href, children, variant = 'primary', className, icon, onClick }: ButtonProps) {
   const classes = cn(
     'group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-semibold',
-    'transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-out',
-    'hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]',
+    'transition-[background-color,color,border-color,box-shadow] duration-200 ease-out',
     variantClasses[variant],
     className,
   )
@@ -38,17 +50,23 @@ export function Button({ href, children, variant = 'primary', className, icon, o
     </>
   )
 
+  const motionProps = {
+    whileHover: { y: -2, scale: 1.02 },
+    whileTap: { scale: 0.96 },
+    transition: tapSpring,
+  }
+
   if (isAppCtaExternal(href)) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes} onClick={onClick}>
+      <MotionAnchor href={href} target="_blank" rel="noopener noreferrer" className={classes} onClick={onClick} {...motionProps}>
         {content}
-      </a>
+      </MotionAnchor>
     )
   }
 
   return (
-    <Link href={href} className={classes} onClick={onClick}>
+    <MotionLink href={href} className={classes} onClick={onClick} {...motionProps}>
       {content}
-    </Link>
+    </MotionLink>
   )
 }
